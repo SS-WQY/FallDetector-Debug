@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                  Bundle savedInstanceState) {
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                View rootView = inflater.inflate(R.layout.fragment_alert, container, false);
+                View rootView = inflater.inflate(R.layout.fragment_wave, container, false);
                 return rootView;
             }
             else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
@@ -227,8 +227,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         isAYOActive = false;
 
-        TextView tv = (TextView) findViewById(R.id.accelerometer_values);
-        tv.setText("");
+//        TextView tv = (TextView) findViewById(R.id.accelerometer_values);
+//        tv.setText("");
 
         currRecordInd = 0;
         accel_count = 0;
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float mSensorZ = event.values[2];
 
         // for debugging
-        TextView tv = (TextView) findViewById(R.id.accelerometer_values);
+//        TextView tv = (TextView) findViewById(R.id.accelerometer_values);
 
         // big loop for checking threshold begins here
 
@@ -290,8 +290,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         accel_data[currRecordInd] = accelValue;
         currRecordInd = (currRecordInd + 1) % MAX_RECORDS;
 
-        if(currRecordInd == 0)
-            tv.setText("");
+//        if(currRecordInd == 0)
+//            tv.setText("");
 
 //		tv.setText(tv.getText() + "   " + accel_count);
 
