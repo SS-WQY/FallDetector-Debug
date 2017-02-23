@@ -21,8 +21,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -62,10 +60,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        titleSettings = (TextView) findViewById(R.id.textFallDetectionStatus);
-
-        buttonSettings = (Button) findViewById(R.id.buttonSettings);
 
         isAYOActive = false;
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -215,8 +209,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private boolean isAYOActive;
 
-    private Button buttonSettings;
-    private TextView titleSettings;
+
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -227,8 +220,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         isAYOActive = false;
 
-//        TextView tv = (TextView) findViewById(R.id.accelerometer_values);
-//        tv.setText("");
+
 
         currRecordInd = 0;
         accel_count = 0;
@@ -308,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void onSettingsButtonClick(View v) {
-        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        Intent settingsIntent = new Intent(this, EditTemplate.class);
         startActivity(settingsIntent);
     }
 

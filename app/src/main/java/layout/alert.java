@@ -1,5 +1,6 @@
 package layout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.falldetector.R;
 
@@ -27,6 +30,12 @@ public class alert extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    /**************************** Added for fragment_alert******************************/
+    private Button buttonSettings;
+    private TextView titleSettings;
+    public Activity activity;
+    /**************************** Added for fragment_alert******************************/
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,7 +74,15 @@ public class alert extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alert, container, false);
+        View v = inflater.inflate(R.layout.fragment_alert, container, false);
+
+        /**************************** Added for fragment_alert******************************/
+        activity = getActivity();
+
+        titleSettings = (TextView) v.findViewById(R.id.textFallDetectionStatus);
+        buttonSettings = (Button) v.findViewById(R.id.buttonSettings);
+        /**************************** Added for fragment_alert******************************/
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -106,4 +123,5 @@ public class alert extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
