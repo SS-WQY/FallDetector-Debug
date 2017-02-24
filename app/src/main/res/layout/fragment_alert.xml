@@ -4,29 +4,43 @@
     android:layout_height="match_parent"
     tools:context="layout.alert">
 
-        <TextView
-            android:id="@+id/accelerometer_values"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/textFallDetectionStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="177dp"
-            android:background="@drawable/title"
-            android:gravity="center"
-            android:textSize="46sp" />
+    <TextView
+        android:id="@+id/accelerometer_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/textFallDetectionStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="top|center"
+        android:text="FALL DETECTION"
+        android:gravity="center"
+        android:textSize="46sp" />
+
+    <TextView
+        android:id="@+id/textActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_gravity="top|center"
+        android:text="ACTIVE"
+        android:textColor="#008000"
+        android:gravity="center"
+        android:textSize="46sp" />
 
     <Button
         android:id="@+id/buttonSettings"
+        android:layout_marginBottom="80dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/csettings"
+        android:background="?android:attr/selectableItemBackground"
         android:onClick="onSettingsButtonClick"
-        android:layout_gravity="bottom|center"/>
-
+        android:layout_gravity="bottom|center"
+        android:text="SETTINGS"
+        android:textSize="40sp" />
 
 </FrameLayout>
 
