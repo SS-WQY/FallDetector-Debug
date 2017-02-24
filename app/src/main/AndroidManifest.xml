@@ -27,6 +27,12 @@
         <activity
             android:name=".EditTemplate">
         </activity>
+        <activity
+            android:name="com.android.falldetector.Verification"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_verification" >
+        </activity>
+
     </application>
 
 </manifest>
