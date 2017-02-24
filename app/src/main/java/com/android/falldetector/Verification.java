@@ -45,25 +45,22 @@ public class Verification extends Activity {
 	private final String contactFileName = "contact.txt";
 	
 	PowerManager.WakeLock wl;
-	
-	private final Handler handler = new Handler() {
-		 
+
+    private final Handler handler = new Handler() {
+
         public void handleMessage(Message msg) {
-             
+
             int aResponse = msg.getData().getInt("message");
 
             if ((aResponse == 1)) {
-            	layoutParams.screenBrightness = (bright ? 0.1F : 0.7F); //-1 = default, 0F = min, 1F = full
-				Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-				getWindow().setAttributes(layoutParams);
-            }else
-            
-            if ((aResponse == 2)){
-            	layoutParams.screenBrightness = (bright ? 0.1F : 1F); //-1 = default, 0F = min, 1F = full
-				Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-				getWindow().setAttributes(layoutParams);
+//                layoutParams.screenBrightness = (bright ? 0.1F : 0.7F); //-1 = default, 0F = min, 1F = full
+//                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+//                getWindow().setAttributes(layoutParams);
+            } else if ((aResponse == 2)) {
+//                layoutParams.screenBrightness = (bright ? 0.1F : 1F); //-1 = default, 0F = min, 1F = full
+//                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+//                getWindow().setAttributes(layoutParams);
             }
-
         }
     };
 
