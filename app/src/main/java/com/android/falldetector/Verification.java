@@ -34,16 +34,16 @@ public class Verification extends Activity {
 	boolean bright;
 	Uri notification;
 	Ringtone r;
-	
+
 	Timer tim;
-	TimerTask flash1;
-	TimerTask flash2;
+//	TimerTask flash1;
+//	TimerTask flash2;
 	TimerTask lvl1;
 	TimerTask lvl2;
 	TimerTask lvl3;
-	
+
 	private final String contactFileName = "contact.txt";
-	
+
 	PowerManager.WakeLock wl;
 
     private final Handler handler = new Handler() {
@@ -64,19 +64,19 @@ public class Verification extends Activity {
         }
     };
 
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_verification);
-		
+
 		bright = false;
-		
+
 		layoutParams = this.getWindow().getAttributes();
 		notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 		r = RingtoneManager.getRingtone(getApplicationContext(), notification);
 		tim = new Timer();
-		
+
 		buttonYes = (Button) findViewById(R.id.buttonYes);
 		buttonYes.setOnClickListener(new OnClickListener() {
 			@Override
@@ -85,9 +85,9 @@ public class Verification extends Activity {
 				r.stop();
 				tim.cancel();
 				finish();
-			}    
+			}
 		});
-		
+
 		buttonNo = (Button) findViewById(R.id.buttonNo);
 		buttonNo.setOnClickListener(new OnClickListener() {
 			@Override
@@ -95,30 +95,30 @@ public class Verification extends Activity {
 				lvl3.run();
 			}
 		});
-		
-		
-		flash1 = new TimerTask() {
-			public void run()
-			{
-				Message msgObj = handler.obtainMessage();
-                Bundle b = new Bundle();
-                b.putInt("message", 1);
-                msgObj.setData(b);
-                handler.sendMessage(msgObj);
-				bright = !bright;
-			}
-		};
-		flash2 = new TimerTask() {
-			public void run()
-			{
-				Message msgObj = handler.obtainMessage();
-                Bundle b = new Bundle();
-                b.putInt("message", 2);
-                msgObj.setData(b);
-                handler.sendMessage(msgObj);
-				bright = !bright;
-			}
-		};
+
+
+//		flash1 = new TimerTask() {
+//			public void run()
+//			{
+//				Message msgObj = handler.obtainMessage();
+//                Bundle b = new Bundle();
+//                b.putInt("message", 1);
+//                msgObj.setData(b);
+//                handler.sendMessage(msgObj);
+//				bright = !bright;
+//			}
+//		};
+//		flash2 = new TimerTask() {
+//			public void run()
+//			{
+//				Message msgObj = handler.obtainMessage();
+//                Bundle b = new Bundle();
+//                b.putInt("message", 2);
+//                msgObj.setData(b);
+//                handler.sendMessage(msgObj);
+//				bright = !bright;
+//			}
+//		};
 		lvl3 = new TimerTask() { //After 480 seconds, call emergency contact
 			public void run()
 			{
@@ -127,59 +127,56 @@ public class Verification extends Activity {
 				r.stop();
 				//Contact emergency number
 				sendAndCall(null);
-				
+
 				tim.cancel();
 			}
 		};
 		lvl2 = new TimerTask() { //After 300 seconds, increase alarm intensity
-			public void run()
-			{
-				AudioManager aman = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-				aman.setStreamVolume(r.getStreamType(),aman.getStreamMaxVolume(r.getStreamType()), AudioManager.FLAG_PLAY_SOUND);
-				flash1.cancel();
-				tim.schedule(flash2,400,400);
+			public void run() {
+                r.stop();
+//				AudioManager aman = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+//				flash1.cancel();
+//				tim.schedule(flash2,400,400);
 				tim.schedule(lvl3,6000);
 			}
 		};
 		lvl1 = new TimerTask() { //After 180 seconds, set off alarm/flash/vibrate
-			public void run()
-			{
-				
+			public void run() {
 				AudioManager aman = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				aman.setStreamVolume(r.getStreamType(),aman.getStreamMaxVolume(r.getStreamType())/2, AudioManager.FLAG_PLAY_SOUND);
 				r.play();
-				tim.schedule(flash1,750,750);
+//				tim.schedule(flash1,750,750);
 				tim.schedule(lvl2,4000);
 			}
 		};
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "wake");
 		wl.acquire();
-		tim.schedule(lvl1, 2000);
+//		tim.schedule(lvl1, 2000);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 	   // Swallow all back button presses
 	}
-	
+
 	private Contact loadContact() {
 		Contact contact = new Contact();
-		
+
 		InputStream in = null;
 		InputStreamReader isr = null;
 		BufferedReader br = null;
-		
+
 		try {
 			in = new BufferedInputStream(openFileInput(this.contactFileName));
 			isr = new InputStreamReader(in);
 			br = new BufferedReader(isr);
-			
+
 			contact.name = br.readLine();
 			contact.cell = br.readLine();
 			contact.phoneOther = br.readLine();
 			contact.email = br.readLine();
-			
+
 			br.close();
 			isr.close();
 			in.close();
@@ -191,14 +188,14 @@ public class Verification extends Activity {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 		return contact;
 	}
-	
+
 	public void sendAndCall(View view) {
 		//Contact emergency number
 		Contact c = loadContact();
-		
+
 		if (c != null) {
 			String number = c.cell;
 			Time now = new Time();
@@ -207,13 +204,16 @@ public class Verification extends Activity {
 
 			SmsManager man = SmsManager.getDefault();
 			man.sendTextMessage(number, null, msg, null, null);
-			
+
          	Intent callIntent = new Intent(Intent.ACTION_CALL);
          	callIntent.setData(Uri.parse("tel:" + c.cell));
          	startActivity(callIntent);
-         	
+
          	finish();
 		}
+        else {
+            finish();
+        }
 	}
-	
+
 }
